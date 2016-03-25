@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Prestamistas";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Prestamista</title>
+    @Scripts.Render("~/bundles/modernizr")
+    
+    @Styles.Render("~/Style/plantillaBasica")
+    @Scripts.Render("~/JS/plantillaBasica")
+    <!--This bundle was moved by the Telerik VS Extensions for compatibility reasons-->
+    @Scripts.Render("~/bundles/jquery")
+    <link href="@Url.Content("~/Content/kendo/2016.1.112/kendo.common-bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2016.1.112/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2016.1.112/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2016.1.112/kendo.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2016.1.112/kendo.dataviz.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/kendo/2016.1.112/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2016.1.112/jszip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2016.1.112/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2016.1.112/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+
+    <script src="~/Content/theme_chain/js/bootstrap.min.js"></script> @*corrección menu izquierdo - click*@
+    <link href="~/Content/theme_chain/css/jquery.gritter.css" rel="stylesheet" />
+    <script src="~/Content/theme_chain/js/jquery.gritter.min.js"></script>
+
+    <link href="~/Scripts/resources/craftpip-jquery-confirm/dist/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="~/Scripts/resources/craftpip-jquery-confirm/dist/jquery-confirm.min.js"></script>
+    <script src="~/Scripts/utilsJs.js"></script>
+    @*<link href="~/Content/correccion.css" rel="stylesheet" />*@
+    @*@Styles.Render("~/Style/CorreccionPlantilla")*@
+    @*<link href="css/style.default.css" rel="stylesheet">*@
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    @RenderPage("_LayoutMenuSuperior.cshtml")
+
+    <section>
+        <div class="mainwrapper">
+            @RenderPage("_LayoutMenuLateral.cshtml")
+
+            <div class="mainpanel">
+                @RenderBody()
+               
+
+            </div><!-- mainpanel -->
+        </div><!-- mainwrapper -->
+    </section>
+
+    @*<script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/pace.min.js"></script>
+    <script src="js/retina.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/custom.js"></script>*@
+    
+    <script>
+            jQuery(document).ready(function() {
+
+                //highlight rows that are already checked
+                jQuery('.msg-list .ckbox input').each(function(){
+                    if (jQuery(this).is(':checked')) {
+                        jQuery(this).parents('li').addClass('highlighted');
+                    }
+                });
+
+                // highlight/unhighlight rows when checked/unchecked
+                jQuery('.ckbox input').click(function(){
+                    if(jQuery(this).is(':checked')) {
+                        jQuery(this).parents('li').addClass('highlighted');
+                    } else {
+                        jQuery(this).parents('li').removeClass('highlighted');
+                    }
+                });
+            });
+    </script>
+    <!-- Modal Bootstrap-->
+    <div id='modalBs' class='modal fade in'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab1809674c14405d93396966b532abd0" Name="Diagram1">
+        <EntityTypeShape EntityType="bdContext.Afiliaciones" Width="1.5" PointX="15" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Areas" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Clientes" Width="1.5" PointX="7.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Creditos" Width="1.5" PointX="18" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Departamentos" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Movimientos" Width="1.5" PointX="15" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Municipios" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Personas" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.Prestadores" Width="1.5" PointX="12.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.TDocumentos" Width="1.5" PointX="8.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.TEstados" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.TGeneros" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdContext.TPeriodos" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="bdContext.FK_Afiliaciones_Prestador" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Areas_Municipio" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Clientes_Area" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Personas_Area" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Clientes_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Clientes_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Creditos_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Creditos_Periodo" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Creditos_Prestador" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Municipios_Departamento" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Movimientos_Credito" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Personas_Generos" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Personas_TDocumentos" ManuallyRouted="false" />
+        <AssociationConnector Association="bdContext.FK_Prestadores_Persona" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

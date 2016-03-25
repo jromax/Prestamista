@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "VerClientes";
+}
+
+<div class="pageheader">
+    <div class="media">
+        <div class="pageicon pull-left">
+            <i class="fa fa-th-list"></i>
+        </div>
+        <div class="media-body">
+            <ul class="breadcrumb">
+                <li><a href=""><i class="glyphicon glyphicon-list-alt"></i></a></li>
+                <li><a href="">Clientes</a></li>
+                <li>Lista de clientes</li>
+            </ul>
+            <h4>Clientes</h4>
+        </div>
+    </div><!-- media -->
+</div><!-- pageheader -->
+@model IEnumerable<Prestamista.BL.Persona>
+<div class="contentpanel">
+
+    <h5 class="lg-title">Resumén</h5>
+    @*<p>Total <code>@Model.Count()</code> Clientes para hoy.</p>*@
+
+    @(Html.Kendo().DatePicker().Name("datepicker"))
+    <!-- col-md-6 -->
+    @(Html.Kendo().Grid<Prestamista.BL.Persona>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.tipoDocumento);
+            columns.Bound(c => c.numDocumento);
+            columns.Bound(c => c.nombres).Width(150);
+            columns.Bound(c => c.apellidos).Width(150);
+            columns.Bound(c => c.direccion);
+            columns.Bound(c => c.telefono);
+            columns.Bound(c => c.numDocumento);
+        })
+        .HtmlAttributes(new { style = "height: 550px;" })
+        .Scrollable()
+        .Groupable()
+        .Sortable()
+        .Filterable()
+        .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+                    .Read(read => read.Action("GetListClientes", "Clientes"))
+            .PageSize(5)
+        )
+    )
+    <!-- panel -->
+</div>
+
+<script src="~/Scripts/VerClientes.js"></script>

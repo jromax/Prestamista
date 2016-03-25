@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bdContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Afiliaciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PrestadorId" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EstadoId" Type="Int32" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Prestadores" Relationship="Self.FK_Afiliaciones_Prestador" FromRole="Afiliaciones" ToRole="Prestadores" />
+  </EntityType>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="MunicipioId" Type="Int32" Nullable="false" />
+    <Property Name="Latitud" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Longitud" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Municipios" Relationship="Self.FK_Areas_Municipio" FromRole="Areas" ToRole="Municipios" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Area" FromRole="Areas" ToRole="Clientes" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK_Personas_Area" FromRole="Areas" ToRole="Personas" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PersonaId" Type="Int32" Nullable="false" />
+    <Property Name="AreaId" Type="Int32" Nullable="false" />
+    <Property Name="EstadoId" Type="Int32" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Areas" Relationship="Self.FK_Clientes_Area" FromRole="Clientes" ToRole="Areas" />
+    <NavigationProperty Name="TEstados" Relationship="Self.FK_Clientes_Estado" FromRole="Clientes" ToRole="TEstados" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK_Clientes_Persona" FromRole="Clientes" ToRole="Personas" />
+    <NavigationProperty Name="Creditos" Relationship="Self.FK_Creditos_Cliente" FromRole="Clientes" ToRole="Creditos" />
+  </EntityType>
+  <EntityType Name="Creditos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ClienteId" Type="Int32" Nullable="false" />
+    <Property Name="PrestadorId" Type="Int32" Nullable="false" />
+    <Property Name="ValorTotal" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Porcentaje" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="PeriodoId" Type="Int32" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Creditos_Cliente" FromRole="Creditos" ToRole="Clientes" />
+    <NavigationProperty Name="TPeriodos" Relationship="Self.FK_Creditos_Periodo" FromRole="Creditos" ToRole="TPeriodos" />
+    <NavigationProperty Name="Prestadores" Relationship="Self.FK_Creditos_Prestador" FromRole="Creditos" ToRole="Prestadores" />
+  </EntityType>
+  <EntityType Name="Departamentos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sigla" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Municipios" Relationship="Self.FK_Municipios_Departamento" FromRole="Departamentos" ToRole="Municipios" />
+  </EntityType>
+  <EntityType Name="Movimientos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CreditoId" Type="Int32" Nullable="false" />
+    <Property Name="ValorCancelado" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="ValorPendiente" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Prestadores" Relationship="Self.FK_Movimientos_Credito" FromRole="Movimientos" ToRole="Prestadores" />
+  </EntityType>
+  <EntityType Name="Municipios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="DepartamentoId" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sigla" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Areas" Relationship="Self.FK_Areas_Municipio" FromRole="Municipios" ToRole="Areas" />
+    <NavigationProperty Name="Departamentos" Relationship="Self.FK_Municipios_Departamento" FromRole="Municipios" ToRole="Departamentos" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="TdocumentoId" Type="Int32" />
+    <Property Name="numeroDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="TGeneroId" Type="Int32" />
+    <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AreaId" Type="Int32" />
+    <NavigationProperty Name="Areas" Relationship="Self.FK_Personas_Area" FromRole="Personas" ToRole="Areas" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Persona" FromRole="Personas" ToRole="Clientes" />
+    <NavigationProperty Name="TGeneros" Relationship="Self.FK_Personas_Generos" FromRole="Personas" ToRole="TGeneros" />
+    <NavigationProperty Name="TDocumentos" Relationship="Self.FK_Personas_TDocumentos" FromRole="Personas" ToRole="TDocumentos" />
+    <NavigationProperty Name="Prestadores" Relationship="Self.FK_Prestadores_Persona" FromRole="Personas" ToRole="Prestadores" />
+  </EntityType>
+  <EntityType Name="Prestadores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PersonaId" Type="Int32" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Afiliaciones" Relationship="Self.FK_Afiliaciones_Prestador" FromRole="Prestadores" ToRole="Afiliaciones" />
+    <NavigationProperty Name="Creditos" Relationship="Self.FK_Creditos_Prestador" FromRole="Prestadores" ToRole="Creditos" />
+    <NavigationProperty Name="Movimientos" Relationship="Self.FK_Movimientos_Credito" FromRole="Prestadores" ToRole="Movimientos" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK_Prestadores_Persona" FromRole="Prestadores" ToRole="Personas" />
+  </EntityType>
+  <EntityType Name="TDocumentos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sigla" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK_Personas_TDocumentos" FromRole="TDocumentos" ToRole="Personas" />
+  </EntityType>
+  <EntityType Name="TEstados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sigla" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Estado" FromRole="TEstados" ToRole="Clientes" />
+  </EntityType>
+  <EntityType Name="TGeneros">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sigla" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK_Personas_Generos" FromRole="TGeneros" ToRole="Personas" />
+  </EntityType>
+  <EntityType Name="TPeriodos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sigla" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EstRegistro" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Creditos" Relationship="Self.FK_Creditos_Periodo" FromRole="TPeriodos" ToRole="Creditos" />
+  </EntityType>
+  <Association Name="FK_Afiliaciones_Prestador">
+    <End Role="Prestadores" Type="Self.Prestadores" Multiplicity="1" />
+    <End Role="Afiliaciones" Type="Self.Afiliaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestadores">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Afiliaciones">
+        <PropertyRef Name="PrestadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Areas_Municipio">
+    <End Role="Municipios" Type="Self.Municipios" Multiplicity="1" />
+    <End Role="Areas" Type="Self.Areas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Municipios">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Areas">
+        <PropertyRef Name="MunicipioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clientes_Area">
+    <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="AreaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_Area">
+    <End Role="Areas" Type="Self.Areas" Multiplicity="0..1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="AreaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clientes_Estado">
+    <End Role="TEstados" Type="Self.TEstados" Multiplicity="1" />
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEstados">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="EstadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clientes_Persona">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="PersonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Creditos_Cliente">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Creditos" Type="Self.Creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Creditos">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Creditos_Periodo">
+    <End Role="TPeriodos" Type="Self.TPeriodos" Multiplicity="1" />
+    <End Role="Creditos" Type="Self.Creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TPeriodos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Creditos">
+        <PropertyRef Name="PeriodoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Creditos_Prestador">
+    <End Role="Prestadores" Type="Self.Prestadores" Multiplicity="1" />
+    <End Role="Creditos" Type="Self.Creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestadores">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Creditos">
+        <PropertyRef Name="PrestadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Municipios_Departamento">
+    <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+    <End Role="Municipios" Type="Self.Municipios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamentos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Municipios">
+        <PropertyRef Name="DepartamentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Movimientos_Credito">
+    <End Role="Prestadores" Type="Self.Prestadores" Multiplicity="1" />
+    <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestadores">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movimientos">
+        <PropertyRef Name="CreditoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_Generos">
+    <End Role="TGeneros" Type="Self.TGeneros" Multiplicity="0..1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TGeneros">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="TGeneroId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_TDocumentos">
+    <End Role="TDocumentos" Type="Self.TDocumentos" Multiplicity="0..1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TDocumentos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="TdocumentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prestadores_Persona">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+    <End Role="Prestadores" Type="Self.Prestadores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Prestadores">
+        <PropertyRef Name="PersonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bdEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Afiliaciones" EntityType="Self.Afiliaciones" />
+    <EntitySet Name="Areas" EntityType="Self.Areas" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="Creditos" EntityType="Self.Creditos" />
+    <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
+    <EntitySet Name="Movimientos" EntityType="Self.Movimientos" />
+    <EntitySet Name="Municipios" EntityType="Self.Municipios" />
+    <EntitySet Name="Personas" EntityType="Self.Personas" />
+    <EntitySet Name="Prestadores" EntityType="Self.Prestadores" />
+    <EntitySet Name="TDocumentos" EntityType="Self.TDocumentos" />
+    <EntitySet Name="TEstados" EntityType="Self.TEstados" />
+    <EntitySet Name="TGeneros" EntityType="Self.TGeneros" />
+    <EntitySet Name="TPeriodos" EntityType="Self.TPeriodos" />
+    <AssociationSet Name="FK_Afiliaciones_Prestador" Association="Self.FK_Afiliaciones_Prestador">
+      <End Role="Prestadores" EntitySet="Prestadores" />
+      <End Role="Afiliaciones" EntitySet="Afiliaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Areas_Municipio" Association="Self.FK_Areas_Municipio">
+      <End Role="Municipios" EntitySet="Municipios" />
+      <End Role="Areas" EntitySet="Areas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clientes_Area" Association="Self.FK_Clientes_Area">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_Area" Association="Self.FK_Personas_Area">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clientes_Estado" Association="Self.FK_Clientes_Estado">
+      <End Role="TEstados" EntitySet="TEstados" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clientes_Persona" Association="Self.FK_Clientes_Persona">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Creditos_Cliente" Association="Self.FK_Creditos_Cliente">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Creditos" EntitySet="Creditos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Creditos_Periodo" Association="Self.FK_Creditos_Periodo">
+      <End Role="TPeriodos" EntitySet="TPeriodos" />
+      <End Role="Creditos" EntitySet="Creditos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Creditos_Prestador" Association="Self.FK_Creditos_Prestador">
+      <End Role="Prestadores" EntitySet="Prestadores" />
+      <End Role="Creditos" EntitySet="Creditos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Municipios_Departamento" Association="Self.FK_Municipios_Departamento">
+      <End Role="Departamentos" EntitySet="Departamentos" />
+      <End Role="Municipios" EntitySet="Municipios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Movimientos_Credito" Association="Self.FK_Movimientos_Credito">
+      <End Role="Prestadores" EntitySet="Prestadores" />
+      <End Role="Movimientos" EntitySet="Movimientos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_Generos" Association="Self.FK_Personas_Generos">
+      <End Role="TGeneros" EntitySet="TGeneros" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_TDocumentos" Association="Self.FK_Personas_TDocumentos">
+      <End Role="TDocumentos" EntitySet="TDocumentos" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prestadores_Persona" Association="Self.FK_Prestadores_Persona">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="Prestadores" EntitySet="Prestadores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

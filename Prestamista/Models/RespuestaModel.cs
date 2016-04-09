@@ -7,21 +7,20 @@ using System.Web;
 namespace Prestamista.Models
 {
     public  class RespuestaModel
-    {
-        public  bool? Respuesta { get; set; }
+    {        
+        public TipoRespuesta Transaccion { get; set; }
         public  dynamic Datos { get; set; }
         public  string Mensaje { get; set; }
+        
         public RespuestaModel()
         {
-            Respuesta = false;
+            Transaccion = TipoRespuesta.Error;
         }
-        public void AsignarViewBagResult()//dynamic viewBack)
-        {
-            //dynamic res = new ExpandoObject();
-            //viewBack.Message = Mensaje;
-            //viewBack.Datos = Datos;
-            //viewBack.Respuesta = Respuesta;
-            //return viewBack;            
+
+        public  enum TipoRespuesta{
+            Success = 1,
+            Warning = 2,
+            Error=3
         }
     }
 

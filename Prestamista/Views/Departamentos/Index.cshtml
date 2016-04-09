@@ -4,10 +4,10 @@
         ViewBag.Title = "Departamentos";
         var res = @ViewBag.Respuesta as Prestamista.Models.RespuestaModel;
     }
-    @if (ViewBag.Respuesta != null)
+    @*@if (ViewBag.Respuesta != null)
     {        
         <script> var respuesta = { Respuesta: "@res.Respuesta", Mensaje: "@res.Mensaje"};  alerta(respuesta);</script>
-    }
+    }*@
 
     <div class="pageheader">
         <div class="media">
@@ -25,29 +25,36 @@
         </div><!-- media -->
     </div><!-- pageheader -->
     <div class="contentpanel">
-        <div class="well well-sm">
-            <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    @*@Html.ActionLink("Nuevo departamento", "RegistrarDepartamento", "Departamentos", new { @class = "btn btn-primary" })*@
-                    @*@Ajax.ActionLink("Nuevo Departamento Modal ", "RegistrarDepartamentoModal", "Departamentos", null, null, new {data_modal = "modal-lg", @class = "btn btn-primary" })*@
-                    @*@(Html.Kendo().Window()
-                        .Name("window")
-                        .Title("Registro departamento")
-                        //.Modal(true)
-                        .Content("loading user info...")
-                        .LoadContentFrom("RegistrarDepartamento", "Departamentos")
-                        .Iframe(true)
-                        .Draggable()
-                        .Events(ev => ev.Close("onClose"))
-                        .Resizable()
-                        .Visible(false)
-                        .Width(600)
-                        .Height(400)
-                    )*@
-                    <a onclick="iniciarModalRegistro()" title='Crear nuevo departamento' class='btn btn-default text-center btn-sm'><span class='glyphicon glyphicon-trash'></span></a>
-                </div>
+
+        <div class="btn-toolbar">            
+            <div class="btn-group">
+                <button onclick="iniciarModalRegistro()" class="btn btn-default btn-sm" type="button"><i class="fa fa-plus mr5"></i> Crear departamento</button>                
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-default btn-sm disabled" type="button"><i class="fa fa-pencil mr5"></i> Edit</button>
+                <button class="btn btn-default btn-sm disabled" type="button"><i class="fa fa-trash-o mr5"></i> Delete</button>
             </div>
         </div>
+
+       
+        @*<div class="well well-sm">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    @Html.ActionLink("Nuevo departamento", "RegistrarDepartamento", "Departamentos", new { @class = "btn btn-primary" })
+                    @Ajax.ActionLink("Nuevo Departamento Modal ", "RegistrarDepartamentoModal", "Departamentos", null, null, new {data_modal = "modal-lg", @class = "btn btn-primary" })*@
+                    
+                    @*<div id="dialog" title="TheTitle" style="overflow: hidden;">
+                        @Url.Action("Create", "Category")
+                    </div>*@
+
+
+
+                    @*@Html.ActionLink("ADDDD ", "RegistrarDepartamentoModal", "Departamentos", null, new { @class = "modal-link btn btn-success" })*@
+
+                    @*<a onclick="iniciarModalRegistro()" title='Crear nuevo departamento' class='btn btn-default text-center btn-sm'><span class='glyphicon glyphicon-plus'></span></a>
+                </div>
+            </div>
+        </div>*@
 
         @(Html.Kendo().Grid<Departamentos>()
         .Name("grid")

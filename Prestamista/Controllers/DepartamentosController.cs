@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Prestamista;
+using System.Linq;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
 using Complementos;
-using Kendo.Mvc.Extensions;
 using Prestamista.Models;
 namespace Prestamista.Controllers
 {
@@ -31,7 +29,7 @@ namespace Prestamista.Controllers
                 {
                     var dep = db.Departamentos.Single(u => u.Id == Id);
                     dep.EstRegistro = Convert.ToByte(NuevoEstado);
-                    res.Respuesta = true;
+                    res.Transaccion = RespuestaModel.TipoRespuesta.Success;
                     res.Mensaje = "Departamento modificado satisfactoriamente";
                     db.SaveChanges();
                 }
@@ -92,10 +90,10 @@ namespace Prestamista.Controllers
         }
 
         // GET: Departamentos/RegistrarDepartamento
-        public ActionResult RegistrarDepartamentoModal()
+        public ActionResult RegistrarDepartamentoModalFrm()
         {
             return PartialView("_RegistrarDepartamento");
-        }
+        }        
 
         // POST: Registro de Departamento        
         [HttpPost]
@@ -107,7 +105,7 @@ namespace Prestamista.Controllers
             {
                 db.Departamentos.Add(departamentos);
                 db.SaveChanges();
-                res.Respuesta = true;
+                res.Transaccion = RespuestaModel.TipoRespuesta.Success;
                 res.Mensaje = "Departamento registrado satisfactoriamente";                
                 ViewBag.Respuesta = res;
                 //res.AsignarViewBagResult(ViewBag);
@@ -119,19 +117,22 @@ namespace Prestamista.Controllers
         // POST: Registro de Departamento        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RegistrarDepartamentoModal([Bind(Include = "Id,Nombre,Sigla,EstRegistro")] Departamentos departamentos)
+        public JsonResult RegistrarDepartamentoModal([Bind(Include = "Id,Nombre,Sigla,EstRegistro")] Departamentos departamentos)
         {
             res = new RespuestaModel();
             if (ModelState.IsValid)
             {
-                db.Departamentos.Add(departamentos);
-                db.SaveChanges();
-                res.Respuesta = true;
-                res.Mensaje = "Departamento registrado satisfactoriamente";
-                ViewBag.Respuesta = res;
-                //res.AsignarViewBagResult(ViewBag);
-                //return View("Index", db.Departamentos.ToList()); //return RedirectToAction("Index");
-            }
+                try
+                {
+                    db.Departamentos.Add(departamentos);
+                    db.SaveChanges();
+                    res.Transaccion = RespuestaModel.TipoRespuesta.Success;
+                    res.Mensaje = "Departamento registrado satisfactoriamente";
+                }catch (Exception ex){
+                    res.Transaccion = RespuestaModel.TipoRespuesta.Error;
+                }                
+                //ViewBag.Respuesta = res;                
+            }           
             return Json(res);
         } 
 

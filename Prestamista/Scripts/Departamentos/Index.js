@@ -32,35 +32,8 @@ function cambiarEstado(id, EstadoActual) {
 }
 
 function iniciarModalRegistro() {
-
-    //$.ajax({
-    //    type: "GET",
-    //    url: "Departamentos/RegistrarDepartamentoModal",
-    //    data: "{}",
-    //    contentType: "application/json; charset=utf-8",
-    //    dataType: "json",
-    //    success: function (msg) {
-    //        // Replace the div's content with the page method's return.
-    //        debugger;
-    //    }
-    //});
-
-    //$("#modal-content").load("/Departamentos/RegistrarDepartamentoModal");
-    //$('#modalBs').modal('show');
-
-    $('#modalBs .modal-content').load('Departamentos/RegistrarDepartamentoModal', function (e) {
-        $('#modal').modal('show');
-    });
-    //Utils.showModalBs("/Departamentos/RegistrarDepartamentoModal", "modal-lg");
-
-    ////$("#window").data("kendoWindow").open();
-    //var window = $("#window").data("kendoWindow");
-    //window.refresh({
-    //    url: '/Departamentos/RegistrarDepartamentoModal'
-    //});
-    ////window.content("RegistrarDepartamentoModal/Departamentos");
-    //window.center();
-    //window.open();
+    $(".modal-content").load("/Departamentos/RegistrarDepartamentoModalFrm");
+    cerrarModal();
 }
 
 function onClose(ev) {
@@ -68,5 +41,10 @@ function onClose(ev) {
 }
 
 function OnSuccess(res) {
-    debugger;
+    if (res.Respuesta = true) {
+        $('.modal').modal('hide');
+        $('#grid').data('kendoGrid').dataSource.read();
+        alerta(res);
+    }
+    
 }

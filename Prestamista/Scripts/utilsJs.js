@@ -18,7 +18,43 @@
     $('#danger').showBootstrapAlertDanger('Text "Danger" alert with close button and hide timout set to 4s.', Bootstrap.ContentType.Text, true, 4000);
 }
 
-function alerta(result) {
+function cerrarModal() { $('#modalBs').modal('show'); }
+
+function alerta(result) {    
+    if (result.Mensaje == null && result.Transaccion == 1) {
+        result.Mensaje = "Acción ejecutada satisfactoriamente";
+    }
+    if (result.Mensaje == null && result.Transaccion != 1) {
+        result.Mensaje = "La transacción no se pudo completar, inténtelo nuevamente";
+    }
+    switch (result.Transaccion) {
+        case 1: // Success
+            swal("OK", result.Mensaje, "success");
+            break;
+        case 2: // Warning
+            swal({
+                title: "Advertencia",
+                text: result.Mensaje,
+                type: "warning",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true
+                        });
+            break;
+        case 3:  // Errro        
+            swal({
+                title: "Error",
+                text: result.Mensaje,
+                type: "error",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true
+            });
+            break;
+    }   
+}
+
+function notificacion(result) {
     var clase = '';
     if (result.Respuesta == "True") {
         result.Respuesta = true;

@@ -601,6 +601,8 @@
     <Content Include="Content\kendo\2016.1.112\Uniform\sprite_2x.png" />
     <Content Include="Content\kendo\2016.1.112\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2016.1.112\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\sweet-alert\sweetalert-dev.js" />
+    <Content Include="Content\sweet-alert\sweetalert.css" />
     <Content Include="Content\theme_chain\ajax\accordion.html" />
     <Content Include="Content\theme_chain\ajax\objects.txt" />
     <Content Include="Content\theme_chain\ajax\panel.html" />
@@ -1107,6 +1109,8 @@
     <Content Include="Content\theme_chain\js\retina.min.js" />
     <Content Include="Content\theme_chain\js\select2.min.js" />
     <Content Include="Content\theme_chain\js\toggles.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\utilsJs.js" />
     <Content Include="Content\theme_chain\js\wysihtml5-0.3.0.min.js" />
     <Content Include="favicon.ico" />

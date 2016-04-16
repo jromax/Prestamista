@@ -20,7 +20,7 @@
 
 function cerrarModal() { $('#modalBs').modal('show'); }
 
-function alerta(result) {    
+function alerta(result) {
     if (result.Mensaje == null && result.Transaccion == 1) {
         result.Mensaje = "Acción ejecutada satisfactoriamente";
     }

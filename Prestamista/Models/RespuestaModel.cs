@@ -15,13 +15,13 @@ namespace Prestamista.Models
         public RespuestaModel()
         {
             Transaccion = TipoRespuesta.Error;
-        }
-
-        public  enum TipoRespuesta{
-            Success = 1,
-            Warning = 2,
-            Error=3
-        }
+        }        
     }
-
+    public enum TipoRespuesta
+    {
+        Success = 1,
+        Warning = 2,
+        Error = 3,
+        Default = 1 
+    }
 }

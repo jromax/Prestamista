@@ -11,6 +11,7 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using Complementos;
 using Prestamista.Models;
+using Prestamista.Utils;
 namespace Prestamista.Controllers
 {
     public class DepartamentosController : Controller
@@ -29,7 +30,7 @@ namespace Prestamista.Controllers
                 {
                     var dep = db.Departamentos.Single(u => u.Id == Id);
                     dep.EstRegistro = Convert.ToByte(NuevoEstado);
-                    res.Transaccion = RespuestaModel.TipoRespuesta.Success;
+                    res.Transaccion = TipoRespuesta.Success;
                     res.Mensaje = "Departamento modificado satisfactoriamente";
                     db.SaveChanges();
                 }
@@ -105,7 +106,7 @@ namespace Prestamista.Controllers
             {
                 db.Departamentos.Add(departamentos);
                 db.SaveChanges();
-                res.Transaccion = RespuestaModel.TipoRespuesta.Success;
+                res.Transaccion = TipoRespuesta.Success;
                 res.Mensaje = "Departamento registrado satisfactoriamente";                
                 ViewBag.Respuesta = res;
                 //res.AsignarViewBagResult(ViewBag);
@@ -119,22 +120,25 @@ namespace Prestamista.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult RegistrarDepartamentoModal([Bind(Include = "Id,Nombre,Sigla,EstRegistro")] Departamentos departamentos)
         {
-            res = new RespuestaModel();
-            if (ModelState.IsValid)
+            return Json(new LogicaNegocio().EjecutarRetornandoJson(res =>
             {
-                try
+                var dep = db.Departamentos.FirstOrDefault(u => u.Nombre == departamentos.Nombre);
+                if (dep == null)
                 {
                     db.Departamentos.Add(departamentos);
                     db.SaveChanges();
-                    res.Transaccion = RespuestaModel.TipoRespuesta.Success;
+                    res.Transaccion = TipoRespuesta.Success;
                     res.Mensaje = "Departamento registrado satisfactoriamente";
-                }catch (Exception ex){
-                    res.Transaccion = RespuestaModel.TipoRespuesta.Error;
-                }                
-                //ViewBag.Respuesta = res;                
-            }           
-            return Json(res);
-        } 
+                }
+                else
+                {
+                    res.Transaccion = TipoRespuesta.Warning;
+                    res.Mensaje = "Departamento ya fue registrado previamente";
+                }
+                return res;
+            }
+            ));
+        }
 
         // GET: Departamentos/Edit/5
         public ActionResult Edit(int? id)
@@ -158,9 +162,7 @@ namespace Prestamista.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(departamentos).State = EntityState.Modified;
-                //var dep = db.Departamentos.Single(u => u.Id == departamentos.Id);   
-                db.SaveChanges();
+                db.Entry(departamentos).State = EntityState.Modified;                                                               
                 return View("Index", db.Departamentos.ToList()); //RedirectToAction("Index");
             }
             return View("EditarDepartamento", departamentos);

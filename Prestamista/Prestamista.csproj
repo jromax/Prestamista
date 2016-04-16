@@ -2062,11 +2062,6 @@
     <Content Include="Views\Departamentos\EditarDepartamento.cshtml" />
     <Content Include="Views\Departamentos\RegistrarDepartamentoModal.cshtml" />
     <Content Include="Views\Shared\_RegistrarDepartamento.cshtml" />
-    <Content Include="Views\Municipios\Create.cshtml" />
-    <Content Include="Views\Municipios\Delete.cshtml" />
-    <Content Include="Views\Municipios\Details.cshtml" />
-    <Content Include="Views\Municipios\Edit.cshtml" />
-    <Content Include="Views\Municipios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

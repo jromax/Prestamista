@@ -1,24 +1,4 @@
-﻿function alertaDiv(tipo, mensaje) {
-    $("#divNotificacion").show();
-    $("#divMensajeNotificacion").text(mensaje);
-    switch (tipo) {
-        case "success":
-            $("#divNotificacion").attr('class', 'alert alert-success');
-            break;
-        case "warning":
-            $("#divNotificacion").attr('class', 'alert alert-warning');
-            break;
-        case "danger":
-            $("#divNotificacion").attr('class', 'alert alert-danger');
-            break;
-    }
-    setTimeout(function () {
-        $("#divNotificacion").hide();
-    }, 6000);
-    $('#danger').showBootstrapAlertDanger('Text "Danger" alert with close button and hide timout set to 4s.', Bootstrap.ContentType.Text, true, 4000);
-}
-
-function cerrarModal() { $('#modalBs').modal('show'); }
+﻿function mostrarModal() { $('#modalBs').modal('show'); }
 
 function alerta(result) {
     if (result.Mensaje == null && result.Transaccion == 1) {
@@ -210,4 +190,25 @@ function handleAjaxForm(form, onSuccess) {
         return false;
     });
 }
+
+function alertaDiv(tipo, mensaje) {
+    $("#divNotificacion").show();
+    $("#divMensajeNotificacion").text(mensaje);
+    switch (tipo) {
+        case "success":
+            $("#divNotificacion").attr('class', 'alert alert-success');
+            break;
+        case "warning":
+            $("#divNotificacion").attr('class', 'alert alert-warning');
+            break;
+        case "danger":
+            $("#divNotificacion").attr('class', 'alert alert-danger');
+            break;
+    }
+    setTimeout(function () {
+        $("#divNotificacion").hide();
+    }, 6000);
+    $('#danger').showBootstrapAlertDanger('Text "Danger" alert with close button and hide timout set to 4s.', Bootstrap.ContentType.Text, true, 4000);
+}
+
 //handleAjaxModal();

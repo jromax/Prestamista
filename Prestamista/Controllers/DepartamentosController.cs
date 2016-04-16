@@ -136,7 +136,7 @@ namespace Prestamista.Controllers
                     res.Mensaje = "Departamento ya fue registrado previamente";
                 }
                 return res;
-            }
+            }, ModelState
             ));
         }
 

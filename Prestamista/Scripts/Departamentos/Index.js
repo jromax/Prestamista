@@ -33,7 +33,7 @@ function cambiarEstado(id, EstadoActual) {
 
 function iniciarModalRegistro() {
     $(".modal-content").load("/Departamentos/RegistrarDepartamentoModalFrm");
-    cerrarModal();
+    mostrarModal();
 }
 
 function onClose(ev) {
@@ -41,10 +41,9 @@ function onClose(ev) {
 }
 
 function OnSuccess(res) {
-    if (res.Respuesta = true) {
+    alerta(res);
+    if (res.Transaccion == 1) {
         $('.modal').modal('hide');
-        $('#grid').data('kendoGrid').dataSource.read();
-        alerta(res);
+        $('#grid').data('kendoGrid').dataSource.read();                
     }
-    
 }

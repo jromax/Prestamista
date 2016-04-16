@@ -9,26 +9,60 @@ namespace Prestamista.Utils
 {
     public class LogicaNegocio : ContextBoundObject
     {
-        public RespuestaModel EjecutarRetornandoJson(Func<RespuestaModel, RespuestaModel> func)
+        public RespuestaModel EjecutarRetornandoJson(Func<RespuestaModel, RespuestaModel> func, ModelStateDictionary modelState)
         {
             RespuestaModel res = new RespuestaModel();
-            try
+            if (!modelState.IsValid)
             {
-                return func(res);
-            }
-            catch (FormatException) { 
-                res.Transaccion = TipoRespuesta.Error;
-                res.Mensaje = "Generado por formato incorrecto de algún dato";
+                res.Transaccion = TipoRespuesta.Warning;
+                res.Mensaje = "Algún dato tiene un formato o tipo incorrecto";
                 return res; 
             }
-            //catch (KeyNotFoundException) { throw new KeyNotFoundException(); }
-            catch (Exception)
-            {
-                res.Transaccion = TipoRespuesta.Error;
-                res.Mensaje = "Generado al interior del contexto de la aplicación";
-                return res; 
-            }
-            finally { }
+            else
+            {                
+                try
+                {
+                    return func(res);
+                }
+                catch (FormatException)
+                {
+                    res.Transaccion = TipoRespuesta.Error;
+                    res.Mensaje = "Generado por formato incorrecto de algún dato";
+                    return res;
+                }
+                //catch (KeyNotFoundException) { throw new KeyNotFoundException(); }
+                catch (Exception)
+                {
+                    res.Transaccion = TipoRespuesta.Error;
+                    res.Mensaje = "Generado al interior del contexto de la aplicación";
+                    return res;
+                }
+                finally { }
+            }            
+        }
+        public RespuestaModel EjecutarRetornandoJson(Func<RespuestaModel, RespuestaModel> func )
+        {
+            RespuestaModel res = new RespuestaModel();
+            
+                try
+                {
+                    return func(res);
+                }
+                catch (FormatException)
+                {
+                    res.Transaccion = TipoRespuesta.Error;
+                    res.Mensaje = "Generado por formato incorrecto de algún dato";
+                    return res;
+                }
+                //catch (KeyNotFoundException) { throw new KeyNotFoundException(); }
+                catch (Exception)
+                {
+                    res.Transaccion = TipoRespuesta.Error;
+                    res.Mensaje = "Generado al interior del contexto de la aplicación";
+                    return res;
+                }
+                finally { }
+            
         }
     }
 }

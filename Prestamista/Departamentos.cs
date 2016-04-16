@@ -11,6 +11,7 @@ namespace Prestamista
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Departamentos
     {
@@ -22,6 +23,8 @@ namespace Prestamista
     
         public int Id { get; set; }
         public string Nombre { get; set; }
+
+        [StringLength(3)]
         public string Sigla { get; set; }
         public byte EstRegistro { get; set; }
     
